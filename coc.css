@@ -5,7 +5,7 @@
 
 */
 body{
-	background-color:#fff;
+	background-color:#0ff;
 	background-image:url('cat.jpg');
 	background-attachment:fixed;
 	background-size: cover;
@@ -49,7 +49,7 @@ div#page_5{
 	background-color:#c3beff;
 }
 div#page_6{
-	background-color:
+	background-color:#ddd;
 }
 #div_main{
 	background-color:#333;
@@ -117,7 +117,7 @@ div#div_menu{
 	margin: 50px;
 }
 #div_panel_6{
-	margin: 15%;
+	padding: 15%;
 }
 #div_dice{
 	padding:12px;
