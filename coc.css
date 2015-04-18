@@ -5,7 +5,10 @@
 
 */
 body{
-	background-color:#0ff;
+
+}
+#div_editor{
+    background-color:#0ff;
 	background-image:url('cat.jpg');
 	background-attachment:fixed;
 	background-size: cover;
@@ -17,6 +20,66 @@ div.container-fluid{
 .form-control{
 }
 
+/* Card.php*/
+
+.div_card_show_name
+{
+    font-size:30px;
+}
+.div_card_show_player
+{
+    font-size:20px;
+}
+.div_card_show_occupation
+{
+
+}
+.div_card_investigator
+{
+    border:solid black 3px;
+    width:1000px;
+    margin:0 auto;
+    border:solid black 3px;
+    float:left;
+}
+.div_card_image
+{
+    background-size:100% 100%;
+   
+    width:300px;
+    height:300px;
+    float:left;
+}
+.div_card_info
+{
+   
+    padding:10px;
+    float:left;
+    width:662px;
+    height:280px;
+}
+#div_card_panel_1
+{
+    height:306px;
+    border:solid black 3px;
+}
+#div_update_image
+{
+    border:solid black 3px;
+}
+.div_card_show_skill, .div_card_item, .div_card_background
+{
+    padding:16px;
+}
+.div_card_item
+{
+    clear:both;
+   
+}
+.div_card_background
+{
+   
+}
 
 div.row{
 	margin-left:0px;
@@ -93,8 +156,9 @@ div#div_menu{
 	margin:0 auto;
 	width:955px;
 } 
-#div_occupation{
+.div_occupation{
 	padding-top:5%;
+	padding-bottom:1%;
 
 }
 .label_occupation_info, .label_occupation_info_check, .label_occupation_info_error{
@@ -200,6 +264,7 @@ p.label_name.input_skills{
 
 input.input_skills[readonly]{
 	background-color:transparent;
+	color:#9d4536;
 }
 p.label_skill{
 	float:left;
@@ -220,7 +285,7 @@ input.input_custom_skills{
 	padding-left:5px;
 	height:34px;
 	padding-right:0px;
-	color:#9d4536;
+	color:#000;
 	width:25%;
 	float:left;
 	border:solid 1px #9d4536;

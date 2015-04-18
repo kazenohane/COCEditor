@@ -80,10 +80,14 @@ function pointInput(obj) {
         if (obj.value < 6 || obj.value > 21) {
             obj.value = 14;
         }
-    } else {
+    } else if (idNum == 8) {
         if (obj.value < 1 || obj.value > 10) {
             obj.value = 6;
         }
+    } else {
+        if (obj.value < 0 || obj.value > 99) {
+            obj.value = 0;
+        }    
     }
     updateValues();
 }
@@ -156,7 +160,7 @@ function changeOccupation(obj) {
     
     //Reset all skills' css  将颜色变回原状，便于之后赋值
     for (var j = 1; j < skills.length+1; j++) {
-        $(id_root + j.toString()).css("color", "#9d4536");
+        $(id_root + j.toString()).css("color", "#000");
         $(id_root + j.toString()).css("font-weight", "normal");
     }
 
@@ -268,7 +272,7 @@ var skills = new Array(
 [56, "克苏鲁神话", 0]
 )
 var infoName = new Array('姓名', '玩家', '姓别', '年龄', '国籍', '母语', '职业')
-var pointName = new Array('力量', '体质', '意志', '敏捷', '外表', '体型', '智力', '教育', '财产')
+var pointName = new Array('力量', '体质', '意志', '敏捷', '外表', '体型', '智力', '教育', '财产',"克苏鲁神话")
 var valueName = new Array('生命值', '魔法值', '心智值', '灵感', '幸运', '理智', '知识', '职业点', '兴趣点', '伤害加值')
 var skill_initial = new Array(10, 1, 1, 1, 5, 1, 1, 40, 1, 15, 15, 1, -1, 20, 10, 1, 5, 30, 50, 1, 25, 20, 10, 10, 20, 25, 25, 5, 25, 25, 1, 15, 1, 20, 5, 10, 10, 5, 1, 15, 1, 10, 1, 1, 1, 1, 1, 5, 5, 25, 30, 10, 25, 15, 25, 25, 10, -1, 0, 5, 5, 5, 5, 5, 5, 1, 1, 1, 0, 0, 0);
 var special_skill_id = new Array(57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71)
@@ -300,9 +304,10 @@ var occupations = new Array(
 ['士兵', [13, 18, 24, 30, 34, 47, 49], 1, []],
 ['发言人', [11, 12, 13, 17, 40, 45], 1, []],
 ['部落成员', [5, 30, 36, 38, 50, 52, 53], 1, []],
-['狂热者', [10, 24, 29, 40, 45], 2, [7, 15, 28, 41, 47]]
+['狂热者', [10, 24, 29, 40, 45], 2, [7, 15, 28, 41, 47]],
+['自定义',[],70,[]]
 )
-var jsonName = new Array("cName", "cPlayer", "cGender", "cAge", "cNationality", "cLanguage", "cOccupation", "cSTR", "cCON", "cPOW", "cDEX", "cAPP", "cSIZ", "cINT", "cEDU", "cMoney", "cHP", "cMP", "cSanity", "cWeapon", "cItem", "cBackground", "cImage", "cTime", "cExperience");
+var jsonName = new Array("cName", "cPlayer", "cGender", "cAge", "cNationality", "cLanguage", "cOccupation", "cSTR", "cCON", "cPOW", "cDEX", "cAPP", "cSIZ", "cINT", "cEDU", "cMoney","cCthulhuMythos", "cHP", "cMP", "cSanity", "cWeapon", "cItem", "cBackground", "cImage", "cTime", "cExperience");
 function initializeSkill() {
     var innerHTML = "";
     var innerHTML_1 = "";
@@ -520,11 +525,9 @@ function createCard() {
 
     data = JSON.stringify(jsonObj);
     var targetURL = "http://localhost:65241/createCard.php";
-    alert(data);
-    //$("#div_link").html(data);
+    //alert(data);
     $.post(targetURL, { card: data }, function (data) {
         $("#div_link").html(data);
-        alert("test");
     }
 	);
     return true;
@@ -579,6 +582,10 @@ function updateValues() {
     var hp = parseInt((toInt($("#point_1").val()) + toInt($("#point_5").val()) + 0.5) / 2); //HP = CON+SIZ/2
     var mp = toInt($("#point_2").val()); //MP = POW
     var san = toInt($("#point_2").val()) * 5; //SAN = POW*5
+    var sanityPoints = san; //Sanity points begin as equal to SAN
+    var maxSanityPoints = 100 - toInt($("#point_9").val());
+    if (sanityPoints > maxSanityPoints) { sanityPoints = maxSanityPoints; } //Sanity points <= 100 - Cthulhu Mythoes
+
     var luck = toInt($("#point_2").val()) * 5; //LUCK = POW*5
     var idea = toInt($("#point_6").val()) * 5; //IDEA = INT*5
     var know = toInt($("#point_7").val()) * 5; //KNOW = EDU * 5
@@ -603,7 +610,7 @@ function updateValues() {
 
     $("#value_0").val(hp);
     $("#value_1").val(mp);
-    $("#value_2").val(san);
+    $("#value_2").val(sanityPoints);
     $("#value_3").val(idea);
     $("#value_4").val(luck);
     $("#value_5").val(san);
@@ -642,6 +649,8 @@ function selectRoll(p) {
         $(p).val(rollResultArray[offset + j]);
     }
     updateValues();
+
+    $("#point_9").val("0"); //初始化克苏鲁神话点数
 
     $("#div_roll").hide(); //清除投点结果
     if (autoScroll) {
@@ -848,7 +857,7 @@ $(document).ready(function () {
             $("#button_lock").text("打开属性编辑");
         }
     })
-
+    
     $(".dot").click(function (e) {
         var dotID = $(this).attr("id");
         var pageNum = parseInt(dotID[4]);

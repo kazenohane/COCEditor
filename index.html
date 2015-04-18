@@ -23,7 +23,7 @@
 </head>
 
 <body>
-<div class="container-fluid">
+<div id = "div_editor" class="container-fluid">
 <div id="div_indicator">
 				<div class="dot active" id="dot_1"></div>
 				<div class="dot" id="dot_2"></div>
@@ -82,6 +82,9 @@
 			<div class="col-xs-12 col-sm-12 col-md-4">
 			<input type="text"  class="form-control input_info" placeholder = "姓名" id="info_0"></input>
 			</div>
+
+
+
 		</div>
 		<div class="row">				
 			<div class="col-xs-12 col-sm-12 col-md-1 col-md-offset-1">
@@ -91,7 +94,11 @@
 			<input type="text"  class="form-control input_info" placeholder = "玩家" id="info_1"></input>
 			</div>
 			
-			<div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-2">
+              <div class="col-xs-12 col-sm-12 col-md-2">
+			<a href="./viewcards.php">查看其它调查员</a>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-2">
 				<button id="button_lock" class="btn btn-success">打开属性编辑</button>
 			</div>	
 			
@@ -107,17 +114,23 @@
 				<option>不明</option>
 			</select>
 			</div>
-			
+
+			<div class="col-xs-12 col-sm-12 col-md-1">
+			<p class="label_name">职业</p>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-2">
+			<input type="text"  class="form-control input_info" placeholder = "职业" id="info_6"></input>
+			</div>
+            			
 			<div class="col-xs-12 col-sm-12 col-md-1">
 			<p class="label_name">年龄</p>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-2">
 			<input type="text"  class="form-control input_info" placeholder = "年龄" onchange="onlyNum(this);" style="ime-mode:Disabled" id="info_3"></input>
 			</div>
-			
-			<div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-1">
-			<a href="./viewcards.php">查看其它调查员</a>
-			</div>
+
+
+
 			
 		</div>
 		<div class="row">	
@@ -135,13 +148,13 @@
 			<input type="text"  class="form-control input_info" placeholder = "母语" id="info_5"></input>
 			</div>		
 			
-			<div class="col-xs-12 col-sm-12 col-md-1">
-			<p class="label_name">职业</p>
+	
+            <div class="col-xs-12 col-sm-12 col-md-1">
+			<p class="label_name">最小年龄</p>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-2">
-			<input type="text"  class="form-control input_info" placeholder = "职业" id="info_6"></input>
+			<input type="text"  class="form-control input_info"  id="value_10" readonly="readonly"></input>
 			</div>	
-
 
 		</div>
 	</div>
@@ -299,7 +312,7 @@
 			<p class="label_name">克苏鲁神话</p>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-2">
-			<input type="text"  class="form-control input_info"  id="value_10" readonly="readonly"></input>
+			<input type="text"  class="form-control input_info"  id="point_9" readonly="readonly" onchange="pointInput(this);"></input>
 			</div>	
 		</div>
 
@@ -307,7 +320,7 @@
 	</div>
 </div>	
 <div class="div_page" id="page_4">	
-	<div id="div_occupation">
+	<div class="div_occupation">
 	<div class="row">	
 		<div class="col-xs-12 col-sm-12 col-md-1"></div>
 		<div class="col-xs-12 col-sm-12 col-md-1">
@@ -362,8 +375,9 @@
 </div>
 
 <div class="div_page" id="page_5">	
+<div class="div_occupation">
 	<div class="row">	
-		<div class="col-xs-12 col-sm-12 col-md-1"></div>
+		<div class="col-xs-12 col-sm-12 col-md-3"></div>
 		<div class="col-xs-12 col-sm-12 col-md-2">
 			<p class="label_name label_occupation_info"></p>
 		</div>
@@ -388,7 +402,7 @@
 		</div>
 	</div>
 
-	
+</div>
 	<div id="div_skills_2">
 	
 	</div>
