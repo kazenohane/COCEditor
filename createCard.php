@@ -206,7 +206,7 @@
      if ($mysqli->connect_errno) {
          echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
      }
-     echo $mysqli->host_info . "\n";
+     //echo $mysqli->host_info . "\n";
      
      foreach ($obj as  $key => $value){ 
          if(!array_key_exists($key, $typeArray)){continue;}
@@ -217,6 +217,25 @@
              $obj[$key] = sqlFilter($mysqli,$value,SQL_STRING);   
          }
      }  
+     
+     $sql_get = "SELECT cID FROM Investigators WHERE cName = ? AND cPlayer = ? AND cItem = ? AND cBackground = ?";
+     if ($stmt =$mysqli->prepare($sql_get)){
+         
+         /* bind parameters for markers */
+         $stmt->bind_param('ssss',$obj["cName"],$obj["cPlayer"],$obj["cItem"],$obj["cBackground"]);
+         $res = ($stmt->execute());
+         
+         /* fetch value */
+         $result = $stmt->get_result();
+         $card = $result->fetch_array();
+
+         $stmt->close();
+         if($card != null){
+             echo("数据库上已有该名调查员");
+             exit();
+         }
+     }
+     
      
 
 
@@ -236,7 +255,6 @@
  ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
      
      
-     echo($obj);
      
      if($stmt =$mysqli->prepare($sql_insert)){
          $stmt->bind_param('sssisssiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiisisisisisisiiiiiiiiiiiiiiiiiiiiiiiiiisisisisisisisisiiiissssss',
@@ -258,8 +276,30 @@
    
          // cID 自增
          $stmt->execute();
+         
+         $stmt->close();
+         
+         $sql_get = "SELECT cID FROM Investigators WHERE cName = ? AND cPlayer = ? AND cItem = ? AND cBackground = ?";
+         if ($stmt =$mysqli->prepare($sql_get)){
+             
+             /* bind parameters for markers */
+             $stmt->bind_param('ssss',$obj["cName"],$obj["cPlayer"],$obj["cItem"],$obj["cBackground"]);
+             $res = ($stmt->execute());
+             
+             /* fetch value */
+             $result = $stmt->get_result();
+             $card = $result->fetch_array();
+
+             $stmt->close();
+             if($card == null){
+                 echo("数据库错误_(:з」∠)_");
+                 exit();
+             }
+             echo("在线卡请戳 card.php?cardid=".$card["cID"]);
+         }
+         
      }else{
-        echo("Error in creating card");
+        echo("数据库错误_(:з」∠)_");
      }
      $mysqli->close();
  }else{

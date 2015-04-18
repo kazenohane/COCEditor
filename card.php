@@ -103,7 +103,7 @@ function damageBouns($str,$siz){
 
 //MAIN ENTRY
     if(isset($_GET["cardid"])==true){
-        $cID = $_GET["cardid"];
+        $cID = (int)$_GET["cardid"];
     
         if(!is_int($cID)){
             echo("_(:з」∠)_");
@@ -129,7 +129,10 @@ function damageBouns($str,$siz){
         /* fetch value */
         $result = $stmt->get_result();
         $card = $result->fetch_array();
-        
+        if($card == null){
+            echo("错误的调查员ID");
+            exit();
+        }
         
         $stmt->close();
         
@@ -264,16 +267,18 @@ function damageBouns($str,$siz){
 
         var fileName = $("#input_image_file").val();
 
-        if (fileName = "") {
+        if (fileName == "") {
             $(".help-block").html("请选择文件");
             return;
         }
         var dot = fileName.lastIndexOf(".");
         var tail = fileName.substr(dot);
+        alert(fileName);
+        alert(tail);
         if (tail == ".jpg" || tail == ".png") {
             $(".help-block").text("请稍等片刻后刷新页面");
         } else {
-            $(".help-block").text("选择的文件格式有误");
+            $(".help-block").text("仅接受1MB以内的jpg与png格式图像文件");
 
         }
     });

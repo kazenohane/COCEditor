@@ -523,13 +523,22 @@ function createCard() {
     $("#input_card").css("width", "100%");
     $("#input_card").css("height", "200px");
 
-    data = JSON.stringify(jsonObj);
-    var targetURL = "http://localhost:65241/createCard.php";
-    //alert(data);
-    $.post(targetURL, { card: data }, function (data) {
-        $("#div_link").html(data);
+
+    //Database
+    var json = JSON.stringify(jsonObj);
+    var targetURL = "createCard.php";
+    $.post(targetURL, { card: json }, function (data) {
+        $("#p_link_1").html(data);
     }
 	);
+
+    //TXT卡
+    var targetURL = "create.php";
+    $.post(targetURL, { card: data }, function (data) {
+        $("#p_link_2").html(data);
+    }
+	);
+
     return true;
 }
 
