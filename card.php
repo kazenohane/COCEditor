@@ -273,8 +273,8 @@ function damageBouns($str,$siz){
         }
         var dot = fileName.lastIndexOf(".");
         var tail = fileName.substr(dot);
-        alert(fileName);
-        alert(tail);
+        //alert(fileName);
+        //alert(tail);
         if (tail == ".jpg" || tail == ".png") {
             $(".help-block").text("请稍等片刻后刷新页面");
         } else {

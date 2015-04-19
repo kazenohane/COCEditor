@@ -295,7 +295,7 @@
                  echo("数据库错误_(:з」∠)_");
                  exit();
              }
-             echo("在线卡请戳 card.php?cardid=".$card["cID"]);
+             echo("调查员在线卡点这里 ->  <a href=\"http://fny.me/coc/card.php?cardid=".$card["cID"]."\">"."http://fny.me/coc/card.php?cardid=".$card["cID"]."</a>");
          }
          
      }else{
