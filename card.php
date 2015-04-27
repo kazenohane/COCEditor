@@ -10,6 +10,15 @@
  */
 include 'common.php';
 
+
+function space($n){
+    $space ="";
+    for($i=0;$i<$n;$i++){
+        $space .= "&nbsp";
+    }
+    return $space;
+}
+
  $skillName = array(
 "50" => "侦查",
 "29" => "图书馆利用",
@@ -41,12 +50,6 @@ include 'common.php';
 "55" => "母语",
 "44" => "心理分析",
 "3" => "考古学",
-"65" => "外语:",
-"66" => "外语:",
-"67" => "外语:",
-"68" => "其他:",
-"69" => "其他:",
-"70" => "其他:",
 "1" => "会计学",
 "2" => "人类学",
 "4" => "天文学",
@@ -70,8 +73,14 @@ include 'common.php';
 "46" => "骑术",
 "47" => "来复枪",
 "48" => "霰弹枪",
-"51" => "机关枪",
+"51" => "冲锋枪",
 "52" => "游泳",
+"65" => "外语:",
+"66" => "外语:",
+"67" => "外语:",
+"68" => "其他:",
+"69" => "其他:",
+"70" => "其他:",
 "57" => "驾驶:",
 "58" => "驾驶:",
 "59" => "艺术:",
@@ -110,7 +119,7 @@ function damageBouns($str,$siz){
             return;
         }
     }else{
-        $cID = 21;
+        $cID = 10000;
     }
     //Connect
     $mysqli = new mysqli("153.120.6.104", "coc", "fengyu", "db_coc");
@@ -138,11 +147,20 @@ function damageBouns($str,$siz){
         
      
     }
+    
+    //文本处理
 
+    
+    $card['cBackground'] = str_replace('\n',"<br><br>",$card['cBackground']);
+    $card['cItem'] = str_replace('\n',"<br><br>",$card['cItem']);   
+    
  ?>
  
  
- <!--TRPG Call of Cthulhu Investigator Card Fengyu-->
+ <!-- TRPG Call of Cthulhu Investigator Card Viewer-->
+ <!-- Art Designer: Mr.p -->
+ <!-- Arthur:       Fengyu-->
+ 
 
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -166,81 +184,153 @@ function damageBouns($str,$siz){
 <body>
 <div id = "div_card_arcade" class="container-fluid">
 <div class="div_card_investigator">
+    <div class="div_card_show_player"><?php echo("玩家 ".$card['cPlayer']);?></div>
+    <div class="div_card_show_name"><?php echo($card['cName']);?></div>
+    <div class="div_card_show_occupation"><?php echo("".$card['cOccupation']);?></div>
+    <div class="div_card_show_info">
+            <?php 
+                $html = " ".$card["cGender"].space(2)." ".$card["cAge"]." 岁  ".space(2).$card["cNationality"]."人  ";
+                echo($html);
+            ?>
+    </div>
+
     <div id="div_card_panel_1">
         <div class="div_card_image">
         
         </div>
         <div class="div_card_info">
-            <div class="div_card_show_name"><?php echo($card['cName']);?></div>
-            <div class="div_card_show_player"><?php echo("玩家 ".$card['cPlayer']);?></div>
-             <br>
-            <div class="div_card_show_occupation"><?php echo("职业 ".$card['cOccupation']);?></div>
-            <br>
+            
 
-             <div class="div_card_show_info">
-            <?php 
-                $html = " 性别 ".$card["cGender"]." 年龄 ".$card["cAge"]." 国籍 ".$card["cNationality"]." 母语 ".$card["cLanguage"];
-                echo($html);
-            ?>
-             </div>
-            <br>
+  
+
+
+
 
             <div class="div_card_show_status">
+                <div class="div_card_show_status_item" id = "div_card_show_status_1">
+                <img class="img_status_icon"src="images/hp.png" />
+                <?php 
+                    $html = space(1)."".$card["cHP"]."";
+                    echo($html);
+                ?>
+                </div>
+                <div class="div_card_show_status_item" id = "div_card_show_status_2">
+                <img class="img_status_icon"src="images/mp.png" />
+                <?php 
+                    $html = space(1)."".$card["cMP"]."";
+                    echo($html);
+                ?>
+                </div>
+                 <div class="div_card_show_status_item" id = "div_card_show_status_3">
+                <img class="img_status_icon " id = "img_status_icon_san" src="images/san.png" />
+                <?php 
+                    $html = space(1)."".$card["cSanity"]."";
+                    echo($html);
+                ?>
+                </div>
+            </div>
+            <div class="div_card_show_point_1">
             <?php 
-                $html = " 生命值 ".$card["cHP"]." 魔法值 ".$card["cMP"]." 心智值 ".$card["cSanity"];
+            $html = '<p class="p_show_point">力量 '.$card['cSTR'].'</p><p class="p_show_point"> 体质 '.$card['cCON'].'</p><p class="p_show_point">意志 '.$card['cPOW'].'</p> <p class="p_show_point">敏捷 '.$card['cDEX'].'</p> <p class="p_show_point">外表 '.$card['cAPP'].'</p>';
                 echo($html);
             ?>
             </div>
-            <br>
 
-            <div class="div_card_show_point">
+            <div class='div_card_show_point_2'>
             <?php 
-            $html = " 力量 ".$card["cSTR"]." 体质 ".$card["cCON"]." 意志 ".$card["cPOW"]." 敏捷 ".$card["cDEX"]." 外表 ".$card["cAPP"]." 体型 ".$card["cSIZ"]." 智力 ".$card["cINT"]." 教育 ".$card["cEDU"]." 财产 ".$card["cMoney"];
+            $html = ' <p class="p_show_point">体型 '.$card['cSIZ'].'</p> <p class="p_show_point">智力 '.$card['cINT'].'</p> <p class="p_show_point">教育 '.$card['cEDU'].'</p> <p class="p_show_point">财产 '.$card['cMoney'].'</p> <p class="p_show_point">母语 '.$card['cLanguage'].'</p>';
                 echo($html);
             ?>
             </div>
-            <br>
-            <div class="div_card_show_value">
+
+            <div class='div_card_show_value'>
             <?php 
-                $know = $card["cEDU"]*5;
+                $know = $card['cEDU']*5;
                 if($know>100){$know = 100;}
-                $html = " 灵感 ".($card["cINT"]*5)." 幸运 ".($card["cPOW"]*5)." 理智 ".($card["cPOW"]*5)." 知识 ".$know." 伤害加值 ".damageBouns((int)$card["cSTR"],(int)$card["cSIZ"])." 克苏鲁神话 ".$card["cCthulhuMythos"];
+                $html = ' <p class="p_show_point">灵感 '.($card['cINT']*5).'</p> <p class="p_show_point">幸运 '.($card['cPOW']*5).'</p> <p class="p_show_point">理智 '.($card['cPOW']*5).'</p> <p class="p_show_point">知识 '.$know.'</p> <p class="p_show_point">伤害加值 '.damageBouns((int)$card['cSTR'],(int)$card['cSIZ']).'</p> <p class="p_show_point">克苏鲁神话 '.$card['cCthulhuMythos'].'</p>';
                 echo($html);
                 
             ?>
             </div>
-            <br>
+
            
         </div>
     </div>
+
+     <div class="div_card_skill_title"></div>
+
      <div class="div_card_show_skill">
             <?php 
-            $html ="调查员技能<br><br>";
-                foreach ($skillName as $key => $value){
+            $html ="";
+            $count = 0;
+            $valid = 1;
+            foreach ($skillName as $key => $value){
+                    if($valid == 1 &&$count %6 == 0){
+                        $html = $html . '<div class="row">';
+                    }
+                    $valid = 1;
                     $cSkill = "cSkill_".$key;
                     $cSkillName = "cSkillName_".$key;
                     if(array_key_exists($cSkill,$card)){
                         $skillName = $value;
-                        if(array_key_exists($cSkillName,$card)){
+                       if(array_key_exists($cSkillName,$card)){
                             if($card[$cSkillName] != "" && $card[$cSkillName] != "外语" && $card[$cSkillName] != "艺术" && $card[$cSkillName] != "手艺"){
+                               if((int)$card[$cSkill]==0){
+                                     $valid = 0;
+                                }
                                 $skillName = $card[$cSkillName];
-                            }else{continue;}
+                            }else{
+                                $valid = 0;
+                            }
                        
                         }
-                        $html = $html . " " . $skillName . " " . $card[$cSkill] ." "; 
+                        if($valid == 1){
+                            $span = '<span class="span_black">';
+                            if($card[$cSkill]>79){
+                                $span = '<span class="span_red">';
+                            }else if($card[$cSkill]>49){
+                                $span = '<span class="span_blue">';
+                            }else if($card[$cSkill]>29){
+                                $span = '<span class="span_green">';
+                            }
+                            
+                            $html = $html . '<div class="col-xs-2 col-md-2"> ' . $span . $skillName . " ".  $card[$cSkill] ."</span></div> ";
+                            $count++;
+                            if($count %6 == 0){
+                                $html = $html . '</div>';     
+                            }
+                        }
                     }
+
+
                 }
+                
+                if($count %6 != 5){ //技能数目未满一排 补上结束符号
+                    $html = $html . '</div>';     
+                }
+                
                 echo($html);
             ?>
     </div>
 
+     <div class="div_card_skill_note">
+         <img class="img_skill_icon"src="images/amateur.png" />30~49 业余
+         <img class="img_skill_icon"src="images/skilled.png" />50~79 熟练
+         <img class="img_skill_icon"src="images/master.png" />80~100 大师
+     </div>
+
+    <div class="div_card_item_title"></div>
     <div class="div_card_item">
-    <?php echo("携带物品<br> ".$card['cItem']);?>
+    <?php echo("".$card['cItem']);?>
     </div>
+    <div class="div_card_background_title"></div>
     <div class="div_card_background">
-    <?php echo("人物背景<br> ".$card['cBackground']);?>
+    <?php echo("".$card['cBackground']);?>
     </div>
 
+    <div class="div_card_end">
+    <img src="images/triangle.png" />
+    </div>
     <div id="div_update_image">
         <form id="submit_image" method="post" action="uploadImage.php<?php echo('?cardid='.$card["cID"].'&player='.$card["cPlayer"]);?>" enctype="multipart/form-data" target="uploadfile">
 

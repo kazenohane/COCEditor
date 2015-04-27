@@ -182,10 +182,47 @@
 // prepareDatabase();
  
  
- 
- function checkCard($items){
-
-     return true;
+ $errorLog ="建卡数据错误_(:з」∠)_";
+ function checkCard($obj){
+    $skillHeader = "cSkill_";
+    $skillNum = 70;
+    for($id = 1;$id<$skillNum+1;$id++){
+        $skillName = $skillHeader.(string)$id;
+         if(array_key_exists($skillName,$obj)){
+             $skillValue = $obj[$skillName];
+             if($skillValue<0 || $skillValue>100){
+                 return false;
+             }
+         }
+    }
+    if($obj['cSTR']<0 || $obj['cSTR']>18){
+        return false;
+    }
+    if($obj['cCON']<0 || $obj['cCON']>18){
+        return false;
+    }
+    if($obj['cPOW']<0 || $obj['cPOW']>18){
+        return false;
+    }
+    if($obj['cDEX']<0 || $obj['cDEX']>18){
+        return false;
+    }
+    if($obj['cAPP']<0 || $obj['cAPP']>18){
+        return false;
+    }    
+    if($obj['cSIZ']<0 || $obj['cSIZ']>18){
+        return false;
+    }
+    if($obj['cINT']<0 || $obj['cINT']>18){
+        return false;
+    }    
+    if($obj['cEDU']<0 || $obj['cEDU']>27){//考虑年龄规则
+        return false;
+    }
+    if($obj['cCthulhuMythos']<0 || $obj['cCthulhuMythos']>100){
+        return false;
+    }
+    return true;
  }	
  
  //MAIN FUNCTION ENTRY
@@ -198,7 +235,7 @@
      //echo("Check passed");
      
      if(!checkCard($obj)){
-         exit("建卡数据有误");
+         exit("建卡数据有错误");
      }
      
      //Connect

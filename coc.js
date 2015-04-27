@@ -55,7 +55,7 @@ function updateOccupationPoints() {
         count -= toInt($("#skill_occupation_" + skills[j][0].toString()).val());
     }
     occupationLeft = count;
-    $(".label_occupation_points").html('剩余职业点数： <span class="span_green">' + count.toString() + '</span>');
+    $(".label_occupation_points").html('剩余职业点数： <span class="span_bold span_green">' + count.toString() + '</span>');
 }
 
 
@@ -66,7 +66,7 @@ function updateInterestPoints() {
         count -= toInt($("#skill_interest_" + skills[j][0].toString()).val());
     }
     interestLeft = count;
-    $(".label_interest_points").html('剩余兴趣点数： <span class="span_green">' + count.toString() + '</span>');
+    $(".label_interest_points").html('剩余兴趣点数： <span class="span_bold span_green">' + count.toString() + '</span>');
 }
 
 function pointInput(obj) {
@@ -77,7 +77,7 @@ function pointInput(obj) {
             obj.value = 11;
         }
     } else if (idNum == 7) {
-        if (obj.value < 6 || obj.value > 21) {
+        if (obj.value < 6 || obj.value > 27) {//考虑到教育随年龄增长的规则
             obj.value = 14;
         }
     } else if (idNum == 8) {
@@ -100,7 +100,7 @@ function occupationSkillInput(obj) {
     var occupationID = document.getElementById("select_occupations").selectedIndex;
 
     if (occupationID == -1) {
-        $(".label_occupation_info_error").html('<span class="span_red">请先选择职业</span>');
+        $(".label_occupation_info_error").html('<span class="span_bold span_red">请先选择职业</span>');
         return;
     }
     updateOccupationPoints();
@@ -125,7 +125,7 @@ function occupationSkillInput(obj) {
     $(".label_occupation_info_check").html("已选择 " + count.toString() + " 个任选职业技能");
 
     if (count > elective_number) {
-        $(".label_occupation_info_error").html('<span class="span_red">任选的职业技能超过规定</span>');
+        $(".label_occupation_info_error").html('<span class="span_bold span_red">任选的职业技能超过规定</span>');
     } else {
         $(".label_occupation_info_error").html("");
     }
@@ -135,7 +135,7 @@ function occupationSkillInput(obj) {
             if (toInt($("#skill_occupation_" + elective_skills[j].toString()).val()) != 0) { countValid += 1; }
         }
         if (countValid != count) {
-            $(".label_occupation_info_error").html('<span class="span_red">选择了不被允许的职业技能</span>');
+            $(".label_occupation_info_error").html('<span class="span_bold  span_red">选择了不被允许的职业技能</span>');
         }
     }
 
@@ -182,9 +182,9 @@ function changeOccupation(obj) {
     }
     var info_msg = '';
     if (elective_skills.length == 0) {
-        info_msg = '允许从 <span class="span_black">黑色</span> 技能中选择 ' + elective_number + ' 个作为职业技能';
+        info_msg = '允许从 <span class="span_bold span_black">黑色</span> 技能中选择 ' + elective_number + ' 个作为职业技能';
     } else {
-        info_msg = '允许从 <span class="span_green">绿色</span> 技能中选择 ' + elective_number + ' 个作为职业技能';
+        info_msg = '允许从 <span class="span_bold span_green">绿色</span> 技能中选择 ' + elective_number + ' 个作为职业技能';
         for (var j = 0; j < elective_skills.length; j++) {
             $(id_root + elective_skills[j].toString()).css("color", "green");
             $(id_root + elective_skills[j].toString()).css("font-weight", "bold");
@@ -259,7 +259,7 @@ var skills = new Array(
 [46, "骑术", 5],
 [47, "来复枪", 25],
 [48, "霰弹枪", 30],
-[51, "机关枪", 15],
+[51, "冲锋枪", 15],
 [52, "游泳", 25],
 [57, "驾驶:", 1],
 [58, "驾驶:", 1],
@@ -400,6 +400,13 @@ function initializeSkill() {
     for (var j = 0; j < skills.length; j++) {
         updateSkillPoints(skills[j][0].toString());
     }
+
+    //其他技能 初始应当可以修改
+    $("#skill_initial_68").removeAttr('readonly');
+    $("#skill_initial_69").removeAttr('readonly');
+    $("#skill_initial_70").removeAttr('readonly');
+
+    //
 }
 
 function initializeOccupation() {
@@ -547,7 +554,7 @@ var rollCount = 0;
 var rollResult = new Array(9);
 var rollResultArray = new Array(9 * rollMaxCount);
 function getRandom(n) {
-    return Math.floor(Math.random() * n + 1);
+    return (Math.floor(Math.random() * 1000000)) % n+1;
 }
 
 function getButtonHtml(n) {
@@ -627,7 +634,7 @@ function updateValues() {
     $("#value_7").val(occupation_points);
     $("#value_8").val(interest_points);
     $("#value_9").val(damage_bonus);
-
+    $("#value_10").val(toInt($("#point_7").val()) +6);//EDU+6
 
     //Show skill table
     //initializeSkill();
@@ -785,7 +792,7 @@ $(document).ready(function () {
         var m = today.getMinutes();
         var s = today.getSeconds();
 
-        res = "投掷结果  " + num.toString() + " D " + range.toString() + "&nbsp&nbsp = &nbsp&nbsp<span class='span_gold'>" + res + "</span>"
+        res = "投掷结果  " + num.toString() + " D " + range.toString() + "&nbsp&nbsp = &nbsp&nbsp<span class='span_bold span_gold'>" + res + "</span>"
 	+ "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"
 	+ "投掷时间 " + h.toString() + ":" + m.toString() + ":" + s.toString() + "";
         $("#div_dice").html(res);
@@ -820,15 +827,15 @@ $(document).ready(function () {
             rollResult[7] = getRandom(6) + getRandom(6) + getRandom(6) + 3; //教育	
             rollResult[8] = getRandom(10); //财产	
             var singleHTML =
-			"力量STR " + "&nbsp;&nbsp;<span class=\"" + getSpanColorClass(rollResult[0], 0) + "\">" + fixNumberLength(rollResult[0], 2) + "</span>&nbsp;&nbsp; " +
-			"体质CON " + "&nbsp;&nbsp;<span class=\"" + getSpanColorClass(rollResult[1], 0) + "\">" + fixNumberLength(rollResult[1], 2) + "</span>&nbsp;&nbsp; " +
-			"意志POW " + "&nbsp;&nbsp;<span class=\"" + getSpanColorClass(rollResult[2], 0) + "\">" + fixNumberLength(rollResult[2], 2) + "</span>&nbsp;&nbsp; " +
-			"敏捷DEX " + "&nbsp;&nbsp;<span class=\"" + getSpanColorClass(rollResult[3], 0) + "\">" + fixNumberLength(rollResult[3], 2) + "</span>&nbsp;&nbsp; " +
-			"外表APP " + "&nbsp;&nbsp;<span class=\"" + getSpanColorClass(rollResult[4], 0) + "\">" + fixNumberLength(rollResult[4], 2) + "</span>&nbsp;&nbsp; " +
-			"体型SIZ " + "&nbsp;&nbsp;<span class=\"" + getSpanColorClass(rollResult[5], 1) + "\">" + fixNumberLength(rollResult[5], 2) + "</span>&nbsp;&nbsp; " +
-			"智力INT " + "&nbsp;&nbsp;<span class=\"" + getSpanColorClass(rollResult[6], 1) + "\">" + fixNumberLength(rollResult[6], 2) + "</span>&nbsp;&nbsp; " +
-			"教育EDU " + "&nbsp;&nbsp;<span class=\"" + getSpanColorClass(rollResult[7], 2) + "\">" + fixNumberLength(rollResult[7], 2) + "</span>&nbsp;&nbsp; " +
-			"财产 $  " + "&nbsp;&nbsp;<span class=\"" + getSpanColorClass(10, 0) + "\">" + fixNumberLength(rollResult[8], 2) + "</span>&nbsp;&nbsp; ";
+			"力量STR " + "&nbsp;&nbsp;<span class=\"span_bold " + getSpanColorClass(rollResult[0], 0) + "\">" + fixNumberLength(rollResult[0], 2) + "</span>&nbsp;&nbsp; " +
+			"体质CON " + "&nbsp;&nbsp;<span class=\"span_bold " + getSpanColorClass(rollResult[1], 0) + "\">" + fixNumberLength(rollResult[1], 2) + "</span>&nbsp;&nbsp; " +
+			"意志POW " + "&nbsp;&nbsp;<span class=\"span_bold " + getSpanColorClass(rollResult[2], 0) + "\">" + fixNumberLength(rollResult[2], 2) + "</span>&nbsp;&nbsp; " +
+			"敏捷DEX " + "&nbsp;&nbsp;<span class=\"span_bold " + getSpanColorClass(rollResult[3], 0) + "\">" + fixNumberLength(rollResult[3], 2) + "</span>&nbsp;&nbsp; " +
+			"外表APP " + "&nbsp;&nbsp;<span class=\"span_bold " + getSpanColorClass(rollResult[4], 0) + "\">" + fixNumberLength(rollResult[4], 2) + "</span>&nbsp;&nbsp; " +
+			"体型SIZ " + "&nbsp;&nbsp;<span class=\"span_bold " + getSpanColorClass(rollResult[5], 1) + "\">" + fixNumberLength(rollResult[5], 2) + "</span>&nbsp;&nbsp; " +
+			"智力INT " + "&nbsp;&nbsp;<span class=\"span_bold " + getSpanColorClass(rollResult[6], 1) + "\">" + fixNumberLength(rollResult[6], 2) + "</span>&nbsp;&nbsp; " +
+			"教育EDU " + "&nbsp;&nbsp;<span class=\"span_bold " + getSpanColorClass(rollResult[7], 2) + "\">" + fixNumberLength(rollResult[7], 2) + "</span>&nbsp;&nbsp; " +
+			"财产 $  " + "&nbsp;&nbsp;<span class=\"span_bold " + getSpanColorClass(10, 0) + "\">" + fixNumberLength(rollResult[8], 2) + "</span>&nbsp;&nbsp; ";
             rollHtml += "<p>" + singleHTML + getButtonHtml(rollCount + i) + "</p>";
             var offset = (rollCount + i) * 9;
             for (var j = 0; j < 9; j++) {

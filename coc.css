@@ -22,64 +22,163 @@ div.container-fluid{
 
 /* Card.php*/
 
+.div_card_investigator
+{
+	background-color: #f5f4f0;
+    width:1000px;
+    margin:0 auto;
+
+}
+
 .div_card_show_name
 {
+	color:#947f38;
+	font-weight:bold;
+	padding:6px;
+	margin:1px;
+	height:60px;
     font-size:30px;
+	background:url("images/border-name.png") no-repeat;
+	background-size:100%;
+	text-align:center;
 }
 .div_card_show_player
 {
+	margin:5px;
+	height:35px;
+	background:url("images/border-player.png") no-repeat;
+	background-size:100%;
     font-size:20px;
+	text-align:center;
+	color:white;
 }
 .div_card_show_occupation
 {
-
+	font-weight:bold;
+	font-size:23px;
+	text-align:center;
 }
-.div_card_investigator
-{
-    border:solid black 3px;
-    width:1000px;
-    margin:0 auto;
-    border:solid black 3px;
-    float:left;
+.div_card_show_info{
+	font-size:15px;
+	text-align:center;	
 }
 .div_card_image
 {
+
+	border:solid #947f38 6px;
     background-size:100% 100%;
    
-    width:300px;
-    height:300px;
+    width:190px;
+    height:190px;
     float:left;
 }
 .div_card_info
 {
-   
-    padding:10px;
+  
     float:left;
-    width:662px;
-    height:280px;
+    width:755px;
+    height:190px;
+}
+.div_card_show_status{
+	margin-top:20px;
+	width: 150px;
+	float:left;
+}
+.div_card_show_status_item{
+	font-size:20px;
+	padding-left: 15px;
+	padding-bottom:25px;
+}
+#div_card_show_status_1{
+	color: #ff534a;
+}
+#div_card_show_status_2{
+	color: #21409a;
+}
+#div_card_show_status_3{
+	color: #ffa44a;
+}
+.div_card_show_skill div, .p_show_point{
+	margin-bottom: 3px;
+}
+.div_card_show_point_1, .div_card_show_point_2, .div_card_show_value{
+	
+	width: 201px;
+	float:left;
+}
+.div_card_show_point_1, .div_card_show_point_2{
+	margin-top:35px;
+}
+.div_card_show_value{
+	margin-top:27px;
+}
+.img_status_icon{
+	width:30px;
+}
+#img_status_icon_san{
+	margin-left:-2px;
+	width:34px;
+}
+#div_card_arcade{
+	margin: 0 auto;
 }
 #div_card_panel_1
 {
-    height:306px;
-    border:solid black 3px;
+	padding-left:27px;
+	padding-right:27px;
+    height:206px;
 }
 #div_update_image
 {
-    border:solid black 3px;
+	margin-top:50px;
+    border:solid #947f38 3px;
 }
 .div_card_show_skill, .div_card_item, .div_card_background
 {
-    padding:16px;
+    padding:27px;
 }
 .div_card_item
 {
     clear:both;
-   
+}
+.div_card_skill_title, .div_card_item_title, .div_card_background_title{
+	height:56px;
+}
+.div_card_skill_note{
+	padding-bottom:27px;
+	padding-right:40px;
+	text-align:right;
+}
+.img_skill_icon{
+	height:10px;
+	margin-left:10px;
+	margin-right:10px;
+}
+.div_card_skill_title
+{ 
+	background:url("images/border-skill.png") no-repeat;
+	background-size:100%;
+}
+.div_card_item_title
+{ 
+	background:url("images/border-item.png") no-repeat;
+	background-size:100%;
 }
 .div_card_background
 {
-   
 }
+.div_card_background_title{
+   	background:url("images/border-background.png") no-repeat;
+	background-size:100%;
+}
+
+.div_card_end{
+	text-align:center;
+}
+
+
+
+/* index.html*/
 
 div.row{
 	margin-left:0px;
@@ -100,10 +199,10 @@ div.div_menu_item{
 	cursor: pointer;
 }
 div#page_2{
-	background-color:#73f0b7;
+	background-color:#acdec8;
 }
 div#page_3{
-	background-color:#e5fd5f;
+	background-color:#deea8f;
 }
 div#page_4{
 	background-color:#d4d1f8;
@@ -317,33 +416,30 @@ input.input_info[readonly]{
 	height:100px;
 }
 
+span.span_bold{
+	font-weight:bold;
+}
+
 span.span_red{
 	color:red;
-	font-weight:bold;
 }
 span.span_green{
 	color:green;
-	font-weight:bold;
 }
 span.span_gold{
 	color:orange;
-	font-weight:bold;
 }
 span.span_blue{
 	color:blue;
-	font-weight:bold;
 }
 span.span_green{
 	color:green;
-	font-weight:bold;
 }
 span.span_black{
 	color:black;
-	font-weight:bold;
 }
 span.span_purple{
 	color:purple;
-	font-weight:bold;
 }
 
 #textarea_log_input,#textarea_log_output{

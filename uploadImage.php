@@ -79,7 +79,7 @@ if($imageName != ''){
     $tail = substr($imageName,$start);
     
     if($tail == ".jpg" || $tail == ".png"){
-        $target = "./images/".$imageID. $tail;
+        $target = "./cards/images/".$imageID. $tail;
         $tmp = $_FILES['image']['tmp_name'];
         if(validateAndUpdate($imageID,$player,$tmp,$target)){
            
