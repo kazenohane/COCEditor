@@ -351,6 +351,17 @@ function damageBouns($str,$siz){
     $(document).ready(function () {
 
         $(".div_card_image").css("background-image", "url(<?php echo($card['cImage']);?> )");
+
+        $(document).keydown(function (event) {
+            var cID =  <?php echo($cID);?>;
+            //Left Array = 37, Right Array = 39
+            if (event.keyCode == 37) {
+                window.location.href = 'card.php?cardid='+ parseInt(cID-1).toString();
+            } else if (event.keyCode == 39) {
+                window.location.href = 'card.php?cardid='+ parseInt(cID+1).toString();
+            }
+        }); 
+
     });
 
     $("#submit_image").submit(function (e) {
