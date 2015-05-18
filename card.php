@@ -92,23 +92,7 @@ function space($n){
 "56" => "克苏鲁神话"
 );
 $specialSkillID = array(57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71);
-function damageBouns($str,$siz){
-        //Damage Bonus
-    $sum = $str + $siz;
-    $db = "-1D6";
-    if ($sum > 12) { $db = "-1D4"; }
-    if ($sum > 16) { $db = "0"; }
-    if ($sum > 24) { $db = "1D4"; }
-    if ($sum > 32) { $db = "1D6"; }
-    if ($sum > 40) { $db = "2D6"; }
-    if ($sum > 56) { $db = "3D6"; }
-    if ($sum > 72) { $db = "4D6"; }
-    if ($sum > 88) {
-        $d = ($sum - 88) / 16 + 1 + 4;
-        $db = $d."D6";
-    }
-    return $db;
-}
+
 
 //MAIN ENTRY
     if(isset($_GET["cardid"])==true){
@@ -139,7 +123,7 @@ function damageBouns($str,$siz){
         $result = $stmt->get_result();
         $card = $result->fetch_array();
         if($card == null){
-            echo("错误的调查员ID");
+            echo("抱歉，这是错误的调查员ID");
             exit();
         }
         
@@ -156,7 +140,7 @@ function damageBouns($str,$siz){
     
  ?>
  
- 
+ `
  <!-- TRPG Call of Cthulhu Investigator Card Viewer-->
  <!-- Art Designer: Mr.p -->
  <!-- Arthur:       Fengyu-->
@@ -344,7 +328,13 @@ function damageBouns($str,$siz){
         <iframe name="uploadfile" width="0px" height="0px"></iframe>
 
     </div>
+    <div class="div_card_end">
+    <br>
+    可以使用键盘 ← 或 → 查看其它调查员。
+    <br>
+    </div>
 </div>
+
 </body>
 
 <script type="text/javascript">
@@ -387,3 +377,164 @@ function damageBouns($str,$siz){
 </script>
 
 </html>
+<?php include("footer.php")?>
+
+<?php
+
+$cardInfoArray = array (
+     'cName' => '姓名',
+     'cPlayer' => '玩家',
+     'cGender' => '性别',
+     'cAge' => '年龄',
+     'cNationality' => '国籍',
+     'cLanguage' => '母语',
+     'cOccupation' => '职业',
+     'cSTR' => '力量',
+     'cCON' => '体质',
+     'cPOW' => '意志',
+     'cDEX' => '敏捷',
+     'cAPP' => '外表',
+     'cSIZ' => '体型',
+     'cINT' => '智力',
+     'cEDU' => '教育',
+     'cMoney' => '财产',
+     'cCthulhuMythos' => '克苏鲁神话点数',
+
+);
+$skillName = array(
+"50" => "侦查",
+"29" => "图书馆利用",
+"13" => "闪躲",
+"30" => "聆听",
+"17" => "快速交谈",
+"33" => "武术",
+"31" => "钳工",
+"40" => "劝说",
+"22" => "手枪",
+"14" => "驾车/马术",
+"11" => "信誉度",
+"19" => "拳击/厮打",
+"24" => "躲藏",
+"38" => "神秘学",
+"21" => "擒抱",
+"49" => "潜行",
+"45" => "心理学",
+"27" => "踢",
+"12" => "乔装",
+"9" => "电脑使用",
+"26" => "跳跃",
+"10" => "藏匿",
+"35" => "医学",
+"8" => "攀爬",
+"54" => "跟踪",
+"18" => "急救",
+"53" => "投掷",
+"55" => "母语",
+"44" => "心理分析",
+"3" => "考古学",
+"1" => "会计学",
+"2" => "人类学",
+"4" => "天文学",
+"5" => "议价",
+"6" => "生物学",
+"7" => "化学",
+"15" => "电器维修",
+"16" => "电子学",
+"20" => "地理学",
+"23" => "头顶",
+"25" => "历史",
+"28" => "法律",
+"32" => "机关枪",
+"34" => "机器维修",
+"36" => "自然史",
+"37" => "领航",
+"39" => "重型机械",
+"41" => "药剂学",
+"42" => "摄影",
+"43" => "物理",
+"46" => "骑术",
+"47" => "来复枪",
+"48" => "霰弹枪",
+"51" => "冲锋枪",
+"52" => "游泳",
+"65" => "外语:",
+"66" => "外语:",
+"67" => "外语:",
+"68" => "其他:",
+"69" => "其他:",
+"70" => "其他:",
+"57" => "驾驶:",
+"58" => "驾驶:",
+"59" => "艺术:",
+"60" => "艺术:",
+"61" => "艺术:",
+"62" => "手艺:",
+"63" => "手艺:",
+"64" => "手艺:",
+"56" => "克苏鲁神话"
+);
+$cardName = str_replace(" ","_",$card['cName']); //去除空格    
+$txtName =  $card['cID'].'_'.$cardName.'.txt';
+//$txtName = iconv( "UTF-8", "gb2312//IGNORE" , $name);
+$fileDir = "./cards/".$txtName;
+echo($fileDir);
+
+
+$txt =      "-------TRPG Call of Cthulhu 人物卡-------"."\n";
+                                                     
+if(!file_exists($fileDir)){
+
+    $know = $card['cEDU']*5;
+    if($know>100){$know = 100;}
+                
+    foreach($cardInfoArray as $key => $value){
+        $txt .= $value.':  '.$card[$key]."\n";
+    }
+    $txt .= ""."\n";
+    $txt .=  "生命值".':  '.$card['cHP']."\n";
+    $txt .=  "魔法值".':  '.$card['cMP']."\n";
+    $txt .=  "心智点".':  '.$card['cSanity']."\n";
+    $txt .=  "灵感".':  '.($card['cINT']*5)."\n";
+    $txt .=  "幸运".':  '.($card['cPOW']*5)."\n";
+    $txt .=  "理智".':  '.($card['cPOW']*5)."\n";
+    $txt .=  "知识".':  '.($know)."\n";
+    $txt .=  "伤害加值".':  '.damageBouns((int)$card['cSTR'],(int)$card['cSIZ'])."\n";
+    $txt .= ""."\n";
+
+    foreach ($skillName as $key => $value){
+        
+        $valid = 1;
+        $cSkill = "cSkill_".$key;
+        $cSkillName = "cSkillName_".$key;
+        if(array_key_exists($cSkill,$card)){
+            $skillName = $value;
+            if(array_key_exists($cSkillName,$card)){
+                if($card[$cSkillName] != "" && $card[$cSkillName] != "外语" && $card[$cSkillName] != "艺术" && $card[$cSkillName] != "手艺"){
+                     if((int)$card[$cSkill]==0){
+                          $valid = 0;
+                     }
+                     $skillName = $card[$cSkillName];
+                 }else{
+                      $valid = 0;
+                 }                       
+            }
+            if($valid == 1){
+                $txt .=  $skillName.':  '.$card[$cSkill]."\n";
+            }
+         }
+     }
+    $txt .= ""."\n";
+    $txt .=  "人物背景".':  '.$card['cBackground']."\n";
+    $txt .= ""."\n";
+    $txt .=  "携带物品".':  '.$card['cItem']."\n";
+
+    $fw = fopen($fileDir,'w');
+	if($fw){
+		fwrite($fw, $txt);
+		fclose($fw);
+	}else{
+        echo("TXT ERROR");
+    }
+	
+}
+?>

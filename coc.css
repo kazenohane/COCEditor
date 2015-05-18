@@ -176,6 +176,32 @@ div.container-fluid{
 	text-align:center;
 }
 
+/*card-gallery.php */
+.div_card_list
+{
+    text-align:center;
+    padding-top:30px;
+    padding-bottom:30px;
+}
+
+div.card_list_row
+{
+    padding:5px;
+}
+.div_card_list a:visited{
+    color:#B64E25;
+    text-decoration:none;
+}
+.div_card_list a:hover{
+    color:#97B6C8;
+    text-decoration:none;
+}
+.div_card_list a{
+    
+    color:#B64E25;
+    font-weight:bold;
+}
+
 /* creature.php  creature-gallery.php*/
 
 
@@ -209,7 +235,21 @@ div.container-fluid{
     max-height:300px;
     height:300px;
 }
-.img_creature
+
+
+/*foot.php*/
+#footer_index
+{
+    background-color:#c3ffae;
+    font-size: 11px; text-align: center; padding: 10px 0 10px 0; position: relative; 
+    margin-top:-31px;
+}
+#footer
+{
+    background-color:#c3ffae;
+    font-size: 11px; text-align: center; padding: 10px 0 10px 0; position: relative; 
+}
+
 /* index.html*/
 
 

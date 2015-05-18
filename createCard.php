@@ -332,7 +332,169 @@
                  echo("数据库错误_(:з」∠)_");
                  exit();
              }
-             echo("调查员在线卡点这里 ->  <a href=\"http://fny.me/coc/card.php?cardid=".$card["cID"]."\">"."http://fny.me/coc/card.php?cardid=".$card["cID"]."</a>");
+            
+             $cID = $card['cID'];
+             $card = $obj;
+            $card['cID'] = $cID;
+$cardInfoArray = array (
+     'cName' => '姓名',
+     'cPlayer' => '玩家',
+     'cGender' => '性别',
+     'cAge' => '年龄',
+     'cNationality' => '国籍',
+     'cLanguage' => '母语',
+     'cOccupation' => '职业',
+     'cSTR' => '力量',
+     'cCON' => '体质',
+     'cPOW' => '意志',
+     'cDEX' => '敏捷',
+     'cAPP' => '外表',
+     'cSIZ' => '体型',
+     'cINT' => '智力',
+     'cEDU' => '教育',
+     'cMoney' => '财产',
+     'cCthulhuMythos' => '克苏鲁神话点数',
+
+);
+$skillName = array(
+"50" => "侦查",
+"29" => "图书馆利用",
+"13" => "闪躲",
+"30" => "聆听",
+"17" => "快速交谈",
+"33" => "武术",
+"31" => "钳工",
+"40" => "劝说",
+"22" => "手枪",
+"14" => "驾车/马术",
+"11" => "信誉度",
+"19" => "拳击/厮打",
+"24" => "躲藏",
+"38" => "神秘学",
+"21" => "擒抱",
+"49" => "潜行",
+"45" => "心理学",
+"27" => "踢",
+"12" => "乔装",
+"9" => "电脑使用",
+"26" => "跳跃",
+"10" => "藏匿",
+"35" => "医学",
+"8" => "攀爬",
+"54" => "跟踪",
+"18" => "急救",
+"53" => "投掷",
+"55" => "母语",
+"44" => "心理分析",
+"3" => "考古学",
+"1" => "会计学",
+"2" => "人类学",
+"4" => "天文学",
+"5" => "议价",
+"6" => "生物学",
+"7" => "化学",
+"15" => "电器维修",
+"16" => "电子学",
+"20" => "地理学",
+"23" => "头顶",
+"25" => "历史",
+"28" => "法律",
+"32" => "机关枪",
+"34" => "机器维修",
+"36" => "自然史",
+"37" => "领航",
+"39" => "重型机械",
+"41" => "药剂学",
+"42" => "摄影",
+"43" => "物理",
+"46" => "骑术",
+"47" => "来复枪",
+"48" => "霰弹枪",
+"51" => "冲锋枪",
+"52" => "游泳",
+"65" => "外语:",
+"66" => "外语:",
+"67" => "外语:",
+"68" => "其他:",
+"69" => "其他:",
+"70" => "其他:",
+"57" => "驾驶:",
+"58" => "驾驶:",
+"59" => "艺术:",
+"60" => "艺术:",
+"61" => "艺术:",
+"62" => "手艺:",
+"63" => "手艺:",
+"64" => "手艺:",
+"56" => "克苏鲁神话"
+);
+$cardName = str_replace(" ","_",$card['cName']); //去除空格    
+$txtName =  $card['cID'].'_'.$cardName.'.txt';
+$fileDir = "./cards/".$txtName;
+
+
+$txt =      "-------TRPG Call of Cthulhu 人物卡-------"."\n";
+                                                     
+if(!file_exists($fileDir)){
+
+    $know = $card['cEDU']*5;
+    if($know>100){$know = 100;}
+                
+    foreach($cardInfoArray as $key => $value){
+        $txt .= $value.':  '.$card[$key]."\n";
+    }
+    $txt .= ""."\n";
+    $txt .=  "生命值".':  '.$card['cHP']."\n";
+    $txt .=  "魔法值".':  '.$card['cMP']."\n";
+    $txt .=  "心智点".':  '.$card['cSanity']."\n";
+    $txt .=  "灵感".':  '.($card['cINT']*5)."\n";
+    $txt .=  "幸运".':  '.($card['cPOW']*5)."\n";
+    $txt .=  "理智".':  '.($card['cPOW']*5)."\n";
+    $txt .=  "知识".':  '.($know)."\n";
+    $txt .=  "伤害加值".':  '.damageBouns((int)$card['cSTR'],(int)$card['cSIZ'])."\n";
+    $txt .= ""."\n";
+
+    foreach ($skillName as $key => $value){
+        
+        $valid = 1;
+        $cSkill = "cSkill_".$key;
+        $cSkillName = "cSkillName_".$key;
+        if(array_key_exists($cSkill,$card)){
+            $skillName = $value;
+            if(array_key_exists($cSkillName,$card)){
+                if($card[$cSkillName] != "" && $card[$cSkillName] != "外语" && $card[$cSkillName] != "艺术" && $card[$cSkillName] != "手艺"){
+                     if((int)$card[$cSkill]==0){
+                          $valid = 0;
+                     }
+                     $skillName = $card[$cSkillName];
+                 }else{
+                      $valid = 0;
+                 }                       
+            }
+            if($valid == 1){
+                $txt .=  $skillName.':  '.$card[$cSkill]."\n";
+            }
+         }
+     }
+    $txt .= ""."\n";
+    $txt .=  "人物背景".':  '.$card['cBackground']."\n";
+    $txt .= ""."\n";
+    $txt .=  "携带物品".':  '.$card['cItem']."\n";
+
+    $fw = fopen($fileDir,'w');
+	if($fw){
+		fwrite($fw, $txt);
+		fclose($fw);
+	}else{
+        echo("TXT ERROR");
+    }
+	
+}
+
+
+             echo("<p>调查员在线卡点这里 ->  <a href=\"http://fny.me/coc/card.php?cardid=".$card["cID"]."\">"."http://fny.me/coc/card.php?cardid=".$card["cID"]."</a></p>");
+             
+             echo("<p>TXT卡 下载点这里 ->  <a href=\"http://fny.me/coc/cards/".$txtName."\">".$card["cName"]."</a></p>");
          }
          
      }else{
@@ -343,6 +505,7 @@
      //Not from Ajax
      
  }
+
 
 
 

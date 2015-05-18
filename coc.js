@@ -435,6 +435,10 @@ function createCard() {
         $("#div_link").html("调查员不能没有名字！");
         return false;
     }
+    if ($("#info_1").val() == "") {
+        $("#div_link").html("请填入玩家名字！");
+        return false;
+    }
     if (document.getElementById("select_occupations").selectedIndex == -1) {
         $("#div_link").html("调查员必须选择一项职业模板！");
         return false;
@@ -448,7 +452,6 @@ function createCard() {
         $("#div_link").html("请注意兴趣技能点数的分配不能超过规定点数！");
         return false;
     }
-
     for (var i = 0; i < infoName.length; i++) {
         var infoVal = $(infoPrefix + i.toString()).val();
         txtText += infoName[i] + ":  " + infoVal + "\n";
@@ -526,25 +529,26 @@ function createCard() {
     jsonObj["cExperience"] = "";
 
     //txtText = txtText.replace(/\n/g,"<br>");
-    $("#input_card").val(txtText);
-    $("#input_card").css("width", "100%");
-    $("#input_card").css("height", "200px");
+    //$("#input_card").val(txtText);
+    //$("#input_card").css("width", "100%");
+    //$("#input_card").css("height", "200px");
 
 
     //Database
     var json = JSON.stringify(jsonObj);
     var targetURL = "createCard.php";
     $.post(targetURL, { card: json }, function (data) {
-        $("#p_link_1").html(data);
+        $("#div_link").html(data);
     }
 	);
+    /* deprecated -- using database json to generate txt now
+        //TXT卡
+        var targetURL = "create.php";
+        $.post(targetURL, { card: data }, function (data) {
 
-    //TXT卡
-    var targetURL = "create.php";
-    $.post(targetURL, { card: data }, function (data) {
-        $("#p_link_2").html(data);
-    }
-	);
+        }
+        );
+    */
 
     return true;
 }
@@ -772,9 +776,9 @@ $(document).ready(function () {
         $("#div_link").val("");
         $("#div_link").show();
         if (createCard() == true) {
-            $("#input_card").show();
-            $("#input_card").focus();
-            $("#input_card").select();
+          //  $("#input_card").show();
+          //  $("#input_card").focus();
+          //  $("#input_card").select();
         }
 
     })

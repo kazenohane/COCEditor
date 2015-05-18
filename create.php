@@ -45,7 +45,7 @@ if(isset($_POST["card"])==true){
 	
 	//$name = iconv( "UTF-8", "gb2312//IGNORE" , $name);
 	$txt = iconv( "UTF-8", "gb2312//IGNORE" , $txt);
-	
+	$name = str_replace(" ","_",$name); //去除空格
 	$fileName = "./cards/" . $id . "_" . $name . ".txt";
 	$link = "./cards/" . $id . "_" . $name . ".txt";
 	
