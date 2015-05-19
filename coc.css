@@ -218,10 +218,21 @@ div.card_list_row
     color:black;
     font-weight:bold;
 }
+div.creature_list_row{
+    padding:5px;
+}
+.div_creature_info
+{
+    font-weight:bold;
+    text-align:center;
+}
+.div_card_creature
+{
+    border:solid #a0ffd1 3px;
+}
+.div_creature_gallery, {
 
-.div_creature_gallery, .div_card_creature{
-	border:solid #947f38 6px;
-	margin:10px;
+	margin: 0 auto;
 }
 .div_creature_sample, .div_creature_info, .div_creature_about, .div_creature_quote
 {
