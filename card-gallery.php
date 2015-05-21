@@ -25,17 +25,16 @@
     <div class="div_card_list">
         
     <div class="row">
-        <div class="col-xs-offset-1 col-xs-5">
-        
+        <div class="col-xs-offset-1 col-xs-4">
+        <span class="span_bold span_gold"><h4>调查员</h4></span>
         </div>
-        <div class="col-xs-4">
-        
+        <div class="col-xs-3">
+        <span class="span_bold span_gold"><h4>玩家</h4></span>
         </div>
-        <div class="col-xs-4">  
+        <div class="col-xs-3">  
         
         </div>
     </div>
-  
 
   
 <?php

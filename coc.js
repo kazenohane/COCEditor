@@ -439,6 +439,10 @@ function createCard() {
         $("#div_link").html("请填入玩家名字！");
         return false;
     }
+    if ($("#info_6").val() == "") {
+        $("#div_link").html("请在个人信息里填写职业！");
+        return false;
+    }
     if (document.getElementById("select_occupations").selectedIndex == -1) {
         $("#div_link").html("调查员必须选择一项职业模板！");
         return false;

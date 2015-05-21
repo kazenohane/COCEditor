@@ -178,7 +178,7 @@ $specialSkillID = array(57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
             ?>
     </div>
 
-    <div id="div_card_panel_1">
+    <div class="div_card_panel_1">
         <div class="div_card_image">
         
         </div>
