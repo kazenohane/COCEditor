@@ -541,8 +541,8 @@ function createCard() {
 
     //Database
     var json = JSON.stringify(jsonObj);
-    
 
+    //alert(json);
     var targetURL = "createCard.php";
     $.post(targetURL, { card: json }, function (data) {
         $("#div_link").html(data);
