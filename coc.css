@@ -202,6 +202,38 @@ div.card_list_row
     font-weight:bold;
 }
 
+/*dice.php*/
+.span_dx
+{
+    color:#649880;
+}
+
+.span_tag
+{
+    color:Silver;
+}
+#div_dice_info
+{
+    font-weight:bold;
+    text-align:center;
+    height:30px;
+}
+#div_dice_code
+{
+    text-align:center;    
+}
+.button_dice
+{
+    width:100%;
+}
+#div_dice_result
+{
+    width:100%;
+    padding-left:100px;
+    padding-right:30px;
+    min-height:600px;
+
+}
 /* creature.php  creature-gallery.php*/
 
 

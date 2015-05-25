@@ -228,7 +228,7 @@
  //MAIN FUNCTION ENTRY
  
  if(isset($_POST["card"])==true){
-    echo("载入");
+     
      $str = $_POST["card"];
      
      $obj = json_decode($str,true);

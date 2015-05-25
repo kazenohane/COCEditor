@@ -4,7 +4,7 @@
 ?>
 
  <!-- TRPG Call of Cthulhu About Page-->
- <!-- Arthur:       Fengyu-->
+ <!-- Author:       Fengyu-->
  
 
 <!DOCTYPE html>

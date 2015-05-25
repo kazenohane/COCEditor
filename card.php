@@ -143,7 +143,7 @@ $specialSkillID = array(57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
  `
  <!-- TRPG Call of Cthulhu Investigator Card Viewer-->
  <!-- Art Designer: Mr.p -->
- <!-- Arthur:       Fengyu-->
+ <!-- Author:       Fengyu-->
  
 
 <!DOCTYPE html>
@@ -477,10 +477,10 @@ $cardName = str_replace(" ","_",$card['cName']); //去除空格
 $txtName =  $card['cID'].'_'.$cardName.'.txt';
 //$txtName = iconv( "UTF-8", "gb2312//IGNORE" , $name);
 $fileDir = "./cards/".$txtName;
-echo($fileDir);
+//echo($fileDir);
 
 
-$txt =      "-------TRPG Call of Cthulhu 人物卡-------"."\n";
+$txt =      "-------TRPG Call of Cthulhu 人物卡-------"."\r\n";
                                                      
 if(!file_exists($fileDir)){
 
@@ -488,18 +488,18 @@ if(!file_exists($fileDir)){
     if($know>100){$know = 100;}
                 
     foreach($cardInfoArray as $key => $value){
-        $txt .= $value.':  '.$card[$key]."\n";
+        $txt .= $value.':  '.$card[$key]."\r\n";
     }
-    $txt .= ""."\n";
-    $txt .=  "生命值".':  '.$card['cHP']."\n";
-    $txt .=  "魔法值".':  '.$card['cMP']."\n";
-    $txt .=  "心智点".':  '.$card['cSanity']."\n";
-    $txt .=  "灵感".':  '.($card['cINT']*5)."\n";
-    $txt .=  "幸运".':  '.($card['cPOW']*5)."\n";
-    $txt .=  "理智".':  '.($card['cPOW']*5)."\n";
-    $txt .=  "知识".':  '.($know)."\n";
-    $txt .=  "伤害加值".':  '.damageBouns((int)$card['cSTR'],(int)$card['cSIZ'])."\n";
-    $txt .= ""."\n";
+    $txt .= "\r\n"."\r\n";
+    $txt .=  "生命值".':  '.$card['cHP']."\r\n";
+    $txt .=  "魔法值".':  '.$card['cMP']."\r\n";
+    $txt .=  "心智点".':  '.$card['cSanity']."\r\n";
+    $txt .=  "灵感".':  '.($card['cINT']*5)."\r\n";
+    $txt .=  "幸运".':  '.($card['cPOW']*5)."\r\n";
+    $txt .=  "理智".':  '.($card['cPOW']*5)."\r\n";
+    $txt .=  "知识".':  '.($know)."\r\n";
+    $txt .=  "伤害加值".':  '.damageBouns((int)$card['cSTR'],(int)$card['cSIZ'])."\r\n";
+    $txt .= "\r\n"."\r\n";
 
     foreach ($skillName as $key => $value){
         
@@ -519,14 +519,14 @@ if(!file_exists($fileDir)){
                  }                       
             }
             if($valid == 1){
-                $txt .=  $skillName.':  '.$card[$cSkill]."\n";
+                $txt .=  $skillName.':  '.$card[$cSkill]."\r\n";
             }
          }
      }
-    $txt .= ""."\n";
-    $txt .=  "人物背景".':  '.$card['cBackground']."\n";
-    $txt .= ""."\n";
-    $txt .=  "携带物品".':  '.$card['cItem']."\n";
+    $txt .= "\r\n"."\r\n";
+    $txt .=  "人物背景".':  '.$card['cBackground']."\r\n";
+    $txt .= "\r\n"."\r\n";
+    $txt .=  "携带物品".':  '.$card['cItem']."\r\n";
 
     $fw = fopen($fileDir,'w');
 	if($fw){
@@ -535,6 +535,6 @@ if(!file_exists($fileDir)){
 	}else{
         echo("TXT ERROR");
     }
-	
+
 }
 ?>

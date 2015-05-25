@@ -110,7 +110,7 @@ function space($n){
  
  <!-- TRPG Call of Cthulhu the Gallery of Investigators-->
  <!-- Art Designer: Mr.p -->
- <!-- Arthur:       Fengyu-->
+ <!-- Author:       Fengyu-->
 
      </div>
 </div>

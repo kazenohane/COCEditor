@@ -532,19 +532,21 @@ function createCard() {
     jsonObj["cTime"] = "";
     jsonObj["cExperience"] = "";
 
+    jsonObj["cNPC"] = $('#value_npc').is(':checked');
+
     //txtText = txtText.replace(/\n/g,"<br>");
     //$("#input_card").val(txtText);
     //$("#input_card").css("width", "100%");
     //$("#input_card").css("height", "200px");
 
-
     //Database
     var json = JSON.stringify(jsonObj);
+    
+
     var targetURL = "createCard.php";
     $.post(targetURL, { card: json }, function (data) {
         $("#div_link").html(data);
-    }
-	);
+    });
     /* deprecated -- using database json to generate txt now
         //TXT卡
         var targetURL = "create.php";

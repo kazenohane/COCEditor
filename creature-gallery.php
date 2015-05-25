@@ -18,7 +18,7 @@
 ?>
 
  <!-- TRPG Call of Cthulhu Gallery of Mythos Creature-->
- <!-- Arthur:       Fengyu-->
+ <!-- Author:       Fengyu-->
  
 
 <!DOCTYPE html>
