@@ -1,4 +1,4 @@
-﻿ <?php
+ <?php
  
  $fileDir = "status/diceArena.txt";
 
@@ -194,21 +194,70 @@ function updateFile($str){
 
             $result[7] = (rand(1,6) +rand(1,6) +rand(1,6)+3);
             $result[8] = (rand(1,10));
-            $names = array();
-             for($i=0;$i<9;$i++){
-            $names[$i] ='力量';
-            }
-            $str= $str." !". (string)$result[0];
-
-            $str= $str." !!!". $names[0];
-     
+			for($i=0;$i<9;$i++){
+				$result[$i] += 100;
+				$result[$i] = substr($result[$i],1);
+			}
+            $names = array('力量','体质','意志','敏捷','外表','体型','智力','教育','财产');
+			$modes = array(0,0,0,0,0,1,1,2,3);
             for($i=0;$i<9;$i++){
-                $str = $str .' '.$names[$i].' '.((string)$result[$i]).' ';
+                $str = $str .' '.$names[$i].' '.getHTML($result[$i],$modes[$i]).' ';
             }
-            $str= $str." !!END!";
             updateFile($str);
             break;
+            
+        case 4://额外投点
+            echo("test");
+            $diceSign = array();
+            $diceNum = array();
+            $diceSize = array();
+            $pos = 0;
+            for($i=0;$i<7;$i++){
+                if($i==0){$diceSign[$i] = '+';}
+                else{$diceSign[$i] =$obj["p".((string)$pos)];} 
+                $pos ++;
+                $diceNum[$i] =$obj["p".((string)$pos)];
+                if($diceNum[$i] ==''){$diceNum[$i] = 1;}
+                $pos ++;
+                $diceSize[$i] =$obj["p".((string)$pos)];
+                $pos ++;
+            }
+            $diceText = $obj["str"];
+            $str = getIP()." ".$diceText." = ";
+            
+            $sum = 0;
+            for($i=0;$i<7;$i++){
+                $count = 0;  
+                if($diceSign[$i] ==''){break;}
+                if($i!=0){
+                    $str .= " ".$diceSign[$i]." ";
+                }
+                if($diceSize[$i] ==''){$count = $diceNum[$i];}
+                else{
+                    $str .= "{"; 
+                    for($j=0;$j<$diceNum[$i];$j++){
+                        $roll = rand(1,$diceSize[$i]);
+                        $count += $roll;
+                        $str .= (string)$roll.", ";              
+                    }
+                    $str .= "}";
+                }
+               
+                $str .= "<co>".(string)$count."</co>";
+                
+                if($diceSign[$i] =='+'){
+                    $sum += $count;
+                }else{
+                    $sum -= $count;
+                }
+            }
+            $str .= " =<coc2>" .(string)$sum."</coc2>";
+            echo($str);
+           // updateFile($str);
+            break;
      } 
+     
+     
  }
  
  

@@ -605,7 +605,7 @@ function getSpanColorClass(n, flag) {
 function updateValues() {
     var str = "";
 
-    var hp = parseInt((toInt($("#point_1").val()) + toInt($("#point_5").val()) + 0.5) / 2); //HP = CON+SIZ/2
+    var hp = parseInt((toInt($("#point_1").val()) + toInt($("#point_5").val()) + 1) / 2); //HP = (CON+SIZ+1)/2 = round up
     var mp = toInt($("#point_2").val()); //MP = POW
     var san = toInt($("#point_2").val()) * 5; //SAN = POW*5
     var sanityPoints = san; //Sanity points begin as equal to SAN

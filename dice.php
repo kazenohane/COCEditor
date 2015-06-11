@@ -171,7 +171,7 @@ var reDA = /\.*r* *(\d*)[Dd](\d*) *([\+\-]) *(\d*)[Dd]?(\d*) *([\+\-])? *(\d*)[D
 
 var reD = /\.*r* *(\d*)[Dd](\d*) *(.*)/;
 var reDX = /\.*[Dd][Xx] *(\d*)[Aa]?(\d*) *(.*)/;
-var reTag = /(\d*\.\d*\.\d*\.\d* \d*\/\d*)/g;
+var reTag = /\d*\.\d*\.(\d*\.\d* \d*\/\d*)/g;
 $(document).keypress(function(e) {  
     // 回车键事件  
     if(e.which == 13) {  
@@ -184,8 +184,17 @@ function toInt(text) {
     if (isNaN(res)) { res = 0; }
     return res;
 }
+function blank(num){
+	var blank = '';
+	for(var i=0;i<num;i++){
+		blank +="&nbsp";
+	}
+	return blank;
+}
 function showResult(data){
     clearMsg();
+	
+	 
     //FOR COC
     data = data.replace(/<co>/g,"<span class=\"span_gold span_bold\">");
     data = data.replace(/<\/co>/g,"</span>");
@@ -194,8 +203,24 @@ function showResult(data){
     data = data.replace(/<dx>/g,"<span class=\"span_dx\">");
     data = data.replace(/<\/dx>/g,"</span>");
 
-    
-     data =data.replace(reTag,"<span class=\"span_tag\"> $1 </span>");
+    //FOR COC Characteristic
+
+	//data = data.replace(/COC属性/g,"COC属性<br>"+blank(20));
+	
+    data = data.replace(/<coc0>/g,blank(1)+"<span class=\"span_green span_bold\">");
+    data = data.replace(/<\/coc0>/g,"</span>"+blank(2));
+
+    data = data.replace(/<coc1>/g,blank(1)+"<span class=\"span_blue \">");
+    data = data.replace(/<\/coc1>/g,"</span>"+blank(2));
+
+    data = data.replace(/<coc2>/g,blank(1)+"<span class=\"span_red span_bold\">");
+    data = data.replace(/<\/coc2>/g,"</span>"+blank(2));
+
+    data = data.replace(/<coc3>/g,blank(1)+"<span class=\"span_gold span_bold\">");
+    data = data.replace(/<\/coc3>/g,"</span>"+blank(2));
+	
+	// Shorten IP and make IP/TIME grey
+    data =data.replace(reTag,"<span class=\"span_tag\"> $1 </span>");
      
     $("#div_dice_result").html(data);    
 }
@@ -215,7 +240,7 @@ function pullResult(){
 }
 function diceBonus(diceReg,diceText){
     var jsonObj = new Object();
-    jsonObj["code"] = 3;
+    jsonObj["code"] = 4;
     alert(diceReg);
     for(var i=1;i<diceReg.length;i++){
         jsonObj["p"+i.toString()] = diceReg[i]; 
@@ -248,13 +273,13 @@ function diceNormal(diceNum,diceSize,diceText){
     
 }
 
-function diceNormal(diceNum,diceSize,diceText){
+function diceDX(diceX,diceY,diceText){
 
         showMsg("投点已提交...请等待...");
         var jsonObj = new Object();
-        jsonObj["code"] = 1;
-        jsonObj["p1"] = diceNum;
-        jsonObj["p2"] = diceSize;
+        jsonObj["code"] = 2;
+        jsonObj["p1"] = diceX;
+        jsonObj["p2"] = diceY;
         jsonObj["p3"] = diceText;
         //Database
         var json = JSON.stringify(jsonObj);
@@ -263,7 +288,6 @@ function diceNormal(diceNum,diceSize,diceText){
         $.post(targetURL, { dice: json }, function (data) {
             showResult(data);
         });
-    
 }
 
 function diceCOC(diceText){
@@ -328,8 +352,9 @@ $(document).ready(function () {
         
         res = code.match(reDA);
         if(res != null){
-            var diceText = getTime() +" " + getName() + " 投掷 "+ res[0] ;
+            var diceText = getTime() +" " + getName() + " 投掷 "+ res[21] ;
             diceBonus(res,diceText);//带+/-的投掷
+            return;
         }
         res =code.match(reD);
         //alert(res);
@@ -382,11 +407,11 @@ $(document).ready(function () {
         diceNormal(1,3,diceText);// 普通投点
     });
     $("#button_6").click(function (e) {
-        var diceText = getTime() +" " + getName() + " 投掷 COC属性" ;
+        var diceText = getTime() +" " + getName() + " 投掷 COC =" ;
         diceCOC(diceText);// COC属性
     });
     $("#button_7").click(function (e) {
-        var diceText = getTime() +" " + getName() + " 投掷 COC属性" ;
+        var diceText = getTime() +" " + getName() + " 投掷 COC =" ;
         for(var i=0;i<5;i++){
             diceCOC(diceText);
         }
