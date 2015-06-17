@@ -241,13 +241,13 @@ function pullResult(){
 function diceBonus(diceReg,diceText){
     var jsonObj = new Object();
     jsonObj["code"] = 4;
-    alert(diceReg);
+    //alert(diceReg);
     for(var i=1;i<diceReg.length;i++){
         jsonObj["p"+i.toString()] = diceReg[i]; 
     }
     jsonObj["str"] = diceText;
     var json = JSON.stringify(jsonObj);
-    alert(json);
+    //alert(json);
     var targetURL = "diceArena.php";
     $.post(targetURL, { dice: json }, function (data) {
         showResult(data);
@@ -352,7 +352,7 @@ $(document).ready(function () {
         
         res = code.match(reDA);
         if(res != null){
-            var diceText = getTime() +" " + getName() + " 投掷 "+ res[21] ;
+            var diceText = getTime() +" " + getName() + " 投掷 "+ res[0] ;
             diceBonus(res,diceText);//带+/-的投掷
             return;
         }

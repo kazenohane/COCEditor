@@ -92,6 +92,36 @@ function updateFile($str){
     
 }
  
+
+ function getHTML($value,$mode){
+	$span_a= array('<coc0>','<coc1>','<coc2>','<coc3>','<coc4>');
+	$span_b= array('</coc0>','</coc1>','</coc2>','</coc3>','</coc4>');
+	$index = 1;
+	switch($mode){
+		case 0:
+			if($value == 18){$index = 3;}
+			else if($value > 14){$index = 2;}
+			else if($value <7){$index = 0;}
+			break;
+		case 1:
+			if($value == 18){$index = 3;}
+			else if($value > 14){$index = 2;}
+			else if($value <12){$index = 0;}
+			break;
+		case 2:
+			if($value == 21){$index = 3;}
+			else if($value > 17){$index = 2;}
+			else if($value <10){$index = 0;}
+			break;
+		case 3:
+			if($value == 10){$index = 3;}
+			else if($value <2){$index = 0;}
+			break;
+	}
+	$res = $span_a[$index].(string)$value.$span_b[$index];
+	return $res;
+ }
+
  //MAIN FUNCTION ENTRY
  if(isset($_POST["dice"])== true){
 
@@ -183,7 +213,7 @@ function updateFile($str){
             
             $diceText = $obj["p3"];
             $str = getIP()." ".$diceText;
-
+     
             $result = array();
             for($i = 0;$i<5;$i++){
                 $result[$i] = (rand(1,6) +rand(1,6) +rand(1,6));
@@ -252,8 +282,8 @@ function updateFile($str){
                 }
             }
             $str .= " =<coc2>" .(string)$sum."</coc2>";
-            echo($str);
-           // updateFile($str);
+            //echo($str);
+            updateFile($str);
             break;
      } 
      
