@@ -58,7 +58,7 @@ function space($n){
 "7" => "化学",
 "15" => "电器维修",
 "16" => "电子学",
-"20" => "地理学",
+"20" => "地质学",
 "23" => "头顶",
 "25" => "历史",
 "28" => "法律",
@@ -318,19 +318,35 @@ $specialSkillID = array(57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
     <div id="div_update_image">
         <form id="submit_image" method="post" action="uploadImage.php<?php echo('?cardid='.$card["cID"].'&player='.$card["cPlayer"]);?>" enctype="multipart/form-data" target="uploadfile">
 
-          <div class="form-group">
+          <div class="form-group div_update_align">
+          
             <label>修改调查员形象</label>
+           
             <input type="file" name ="image" id="input_image_file" />
             <p class="help-block">仅接受1MB以内的jpg与png格式图像文件</p>
           </div>
-          <button type="submit" id="button_image_submit" class="btn btn-success">Submit</button>
+          
+          <div class="div_update_align">
+          <button type="submit" id="button_image_submit" class="btn btn-success">提交</button>
+          </div>
         </form>
         <iframe name="uploadfile" width="0px" height="0px"></iframe>
-
+        
+        
+        <div class="div_update_align">
+        <label>修改调查员资料</label>
+        </div>
+		<textarea id="input_background" class="input_info"  placeholder ="人物背景"></textarea>
+		
+		<textarea id="input_item" class="input_info" placeholder ="携带物品"></textarea>
+        <div class="div_update_align">
+		<button type="submit" id="button_info_submit" class="btn btn-success">提交</button>
+        <br><br>
+        </div>
     </div>
     <div class="div_card_end">
     <br>
-    可以使用键盘 ← 或 → 查看其它调查员。
+    可以使用键盘 左右方向键 查看其它调查员。
     <br>
     </div>
 </div>
@@ -352,6 +368,46 @@ $specialSkillID = array(57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
             }
         }); 
 
+       $("#button_info_submit").click(function (e) {
+            
+            var jsonObj = new Object();
+            var valid = false;
+    
+            var backgroundText = $.trim($("#input_background").val());
+            var itemText = $.trim($("#input_item").val());
+            
+            var oldBackgroundText = $.trim($(".div_card_background").html());
+            var oldItemText = $.trim($(".div_card_item").html());
+            if(backgroundText != ''){
+                if(backgroundText.length < oldBackgroundText.length -100){
+                    if(!window.confirm('你的新背景似乎比之前短很多，确定要提交吗？')){
+                        return;
+                    }
+                }
+               jsonObj["bg"] = backgroundText ;
+               valid = true;
+            }
+            if(itemText != ''){
+               if(itemText.length < oldItemText.length -100){
+                    if(!window.confirm('你的新背景似乎比之前短很多，确定要提交吗？')){
+                        return;
+                    }
+                }
+                jsonObj["item"] = itemText ;
+                valid = true;
+            }
+            
+            if(valid == true){    
+                var targetURL = "updateInfo";
+                var json = JSON.stringify(jsonObj);
+                alert(json);
+                $.post(targetURL, { info: json }, function (data) {
+                    showResult(data);
+                });   
+    
+            }
+        });
+    
     });
 
     $("#submit_image").submit(function (e) {
@@ -374,6 +430,8 @@ $specialSkillID = array(57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
         }
     });
 
+ 
+    
 </script>
 
 </html>
@@ -440,7 +498,7 @@ $skillName = array(
 "7" => "化学",
 "15" => "电器维修",
 "16" => "电子学",
-"20" => "地理学",
+"20" => "地质学",
 "23" => "头顶",
 "25" => "历史",
 "28" => "法律",

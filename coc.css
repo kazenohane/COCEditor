@@ -128,9 +128,20 @@ div.container-fluid{
 	padding-right:27px;
     height:206px;
 }
+
+.div_update_align
+{
+    margin-left:2%;
+    margin-top:30px;
+}
+
 #div_update_image
 {
 	margin-top:50px;
+    border:solid #947f38 3px;
+}
+#div_update_background
+{
     border:solid #947f38 3px;
 }
 .div_card_show_skill, .div_card_item, .div_card_background
