@@ -313,58 +313,56 @@ $specialSkillID = array(57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
     </div>
 
     <div class="div_card_end">
-    <img src="images/triangle.png" />
+    <img id="triangle" src="images/triangle.png" />
     </div>
-    <div id="div_update_image">
-        <form id="submit_image" method="post" action="uploadImage.php<?php echo('?cardid='.$card["cID"].'&player='.$card["cPlayer"]);?>" enctype="multipart/form-data" target="uploadfile">
+    <div class="div_update_panel">
+        <div id="div_update_image">
+            <form id="submit_image" method="post" action="uploadImage.php<?php echo('?cardid='.$card["cID"].'&player='.$card["cPlayer"]);?>" enctype="multipart/form-data" target="uploadfile">
 
-          <div class="form-group">
-          <div class="div_update_align">
-            <label>修改调查员形象</label>
-           </div>
-            <input type="file" name ="image" id="input_image_file" />
-            <p class="help-block">仅接受1MB以内的jpg与png格式图像文件</p>
-          </div>
+              <div class="form-group">
+              <div class="div_update_align">
+                <label>修改调查员形象</label>
+               </div>
+                <input type="file" name ="image" id="input_image_file" />
+                <p class="help-block">仅接受1MB以内的jpg与png格式图像文件</p>
+              </div>
           
-          <div class="div_update_align">
-          <button type="submit" id="button_image_submit" class="btn btn-success">提交形象</button>
-          </div>
-        </form>
-        <iframe name="uploadfile" width="0px" height="0px"></iframe>
-     </div>  
-     <div id="div_update_info">   
-        
-
-        <div class="row">
-		    <label>修改调查员物品</label>
-        </div>
-		<textarea id="input_item" class="input_info" placeholder ="携带物品"></textarea>
-        
-        <div class="row">
-            <label>修改调查员背景</label>
+              <div class="div_update_align">
+              <button type="submit" id="button_image_submit" class="btn btn-success">提交形象</button>
+              </div>
+            </form>
+            <iframe name="uploadfile" width="0px" height="0px"></iframe>
+         </div>  
+         <div id="div_update_info">   
+            <div class="row">
+		        <label>修改调查员物品</label>
             </div>
+		    <textarea id="input_item" class="input_info" placeholder ="携带物品"></textarea>
         
-		<textarea id="input_background" class="input_info"  placeholder ="人物背景"></textarea>
+            <div class="row">
+                <label>修改调查员背景</label>
+                </div>     
+		    <textarea id="input_background" class="input_info"  placeholder ="人物背景"></textarea>
         
-        <div class="row">
- 
-            <div class="col-xs-12 col-sm-12 col-md-3">
-		    <input type="password"  class="form-control input_info" placeholder = "玩家密码" id="input_password"></input>            
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-3">
-            <button type="submit" id="button_info_submit" class="btn btn-success">提交信息</button>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-3">
-                <div id="div_update_result">
-                    *密码设置请联系管理员
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+		        <input type="password"  class="form-control input_info" placeholder = "玩家密码" id="input_password"></input>            
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                <button type="submit" id="button_info_submit" class="btn btn-success">提交信息</button>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    <div id="div_update_result">
+                        *密码设置请联系管理员
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
     <div class="div_card_end">
     <br>
-    可以使用键盘 左右方向键 查看其它调查员。
+    点击三角形查看修改选项|使用键盘左右方向键翻页
     <br>
     </div>
 </div>
@@ -374,9 +372,11 @@ $specialSkillID = array(57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
 <script type="text/javascript">
     function showResult(data){
         $("#div_update_result").html(data);
-        
+       
     }
     $(document).ready(function () {
+        
+        $(".div_update_panel").hide();
 
         $(".div_card_image").css("background-image", "url(<?php echo($card['cImage']);?> )");
 
@@ -390,6 +390,13 @@ $specialSkillID = array(57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
             }
         }); 
 
+       $("#triangle").click(function (e) {
+           if($(".div_update_panel").is(":hidden")){
+               $(".div_update_panel").show();
+           }else{
+               $(".div_update_panel").hide();
+           }
+       });
        $("#button_info_submit").click(function (e) {
             
             var jsonObj = new Object();
