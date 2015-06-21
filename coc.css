@@ -129,14 +129,22 @@ div.container-fluid{
     height:206px;
 }
 
-.div_update_align
+#div_update_info
 {
-    margin-left:2%;
-    margin-top:30px;
+    padding:2%;
+    margin-top:-3px;
+    border:solid #947f38 3px;
+}
+
+#div_update_result
+{
+    padding-top:10px;
+    height:30px;
 }
 
 #div_update_image
 {
+    padding:2%;
 	margin-top:50px;
     border:solid #947f38 3px;
 }
