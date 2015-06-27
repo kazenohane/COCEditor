@@ -381,6 +381,12 @@ $specialSkillID = array(57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
         $(".div_card_image").css("background-image", "url(<?php echo($card['cImage']);?> )");
 
         $(document).keydown(function (event) {
+            var inputID=$("input:focus").attr("id");
+            var textareaID = $("textarea:focus").attr("id");
+            if(inputID !=null || textareaID != null){
+                return;
+            }
+            
             var cID =  <?php echo($cID);?>;
             //Left Array = 37, Right Array = 39
             if (event.keyCode == 37) {
