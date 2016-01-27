@@ -6,4 +6,4 @@ Using plugins: jquery.scrollTo  Copyright (c) 2007-2015 Ariel Flesler
 
 Copyright (c) 2015 Project COCEditor
 
-Link for website: http://fny.me/coc
+Link for website: http://hina.moe/coc/
